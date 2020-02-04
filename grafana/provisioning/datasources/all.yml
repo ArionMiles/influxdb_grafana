@@ -1,0 +1,14 @@
+datasources:
+- name: 'InfluxDB'
+  type: influxdb
+  access: direct
+  database: testdb
+  user: admin
+  password: admin123
+  org_id: 1
+  url: 'http://localhost:8086'
+  is_default: true
+  jsonData:
+    timeInterval: "15s"
+  version: 1
+  editable: true

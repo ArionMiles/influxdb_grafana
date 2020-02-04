@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    env_file: env.influxdb
+    volumes:
+      - influxdb:/var/lib/influxdb
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:5.4.3
+    ports:
+      - "3000:3000"
+    env_file:
+      - 'grafana/env.grafana'
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      - grafana:/var/lib/grafana
+      - $PWD/grafana/provisioning:/etc/grafana/provisioning
+      - $PWD/grafana/config.ini:/etc/grafana/config.ini
+      - $PWD/grafana/dashboards:/var/lib/grafana/dashboards
+
+volumes:
+  influxdb:
+  grafana:
